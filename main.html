@@ -51,8 +51,9 @@
     </nav>
 
     <div class="container">
-        <h1 class="display-4">Elmo's Coffee App</h1>
+        <h1 class="display-4">Carly's Coffee App</h1>
         <h1> You are now logged in </h1>
+        <h1> Message of the day: <span id="quote-goes-here"> </span></h1>
     </div>
 
     <!----------------------------------------------->
@@ -74,6 +75,37 @@
     <!-- JS files: Your own JavaScript functions included here    -->
     <!--------------------------------------------------------------------->
     <script src="scripts/my_functions.js"></script>
+
+    <script>
+        function readQuote() {
+            db.collection("messages").doc("tuesday")
+                .onSnapshot(
+                    function (snap) {
+                        console.log(snap.data());
+                        document.getElementById("quote-goes-here").innerHTML = snap.data().message;
+                    })
+        }
+        readQuote();
+
+        function writeCities() {
+            var citiesRef = db.collection("cities");
+
+            citiesRef.add({
+                code: "YVR",
+                name: "Carly's City of Vancouver",
+            });
+            citiesRef.add({
+                code: "TOK",
+                name: "Tokyo",
+            });
+            citiesRef.add({
+                code: "BJ",
+                name: "Beijing",
+            });
+        }
+        //writeCities();
+
+    </script>
 
 
 </body>
